@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Pokemon, DeleteModal } from 'components'
-import { observer, emit, useQuery } from 'startupjs'
+import { observer, emit, useQuery, useSession } from 'startupjs'
 // import { Div, Row, H1, Button, Modal, TextInput, Collapse, Pagination, Select } from '@startupjs/ui'
 import { Checkbox, TextInput, Button, Div, Span } from '@startupjs/ui'
-import { CheckboxSet } from 'components'
-import { TYPE_OPTIONS } from '../../../model/PockemonModel'
+// import { CheckboxSet } from 'components'
+// import { TYPE_OPTIONS } from '../../../model/PockemonModel'
 import './index.styl'
 
 // const { Content } = Collapse
@@ -15,12 +15,14 @@ import './index.styl'
 //   { label: '20', value: 20 },
 // ]
 
-export default observer(function PHome () {
+export default observer(function PHall () {
   // const [deleteId, setDeleteId] = useState(null)
   // const showModal = deleteId !== null
 
   const [name, setName] = useState('')
   const [type, setType] = useState(false)
+
+  const [userId, $userId] = use
 
   // const [collapsed, setCollapsed] = useState(false)
 

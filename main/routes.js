@@ -5,8 +5,13 @@ export default (components = {}) => [
     component: components.PHome
   },
   {
-    path: '/about',
+    path: '/hall',
     exact: true,
-    component: components.PAbout
+    component: components.PHall
+  },
+  {
+    path: '/pokemon/:id?',
+    exact: true,
+    component: components.PEdit
   }
 ]

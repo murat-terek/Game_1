@@ -1,0 +1,25 @@
+user
+  - id
+  - name
+  - role: 'player', 'professor'
+
+game
+  - id
+  - playerIds
+  - gameRoundId
+  - name
+  - createdOn
+  - professorId
+  - complete: true | false
+
+gameRounds
+  - id
+  - results: {
+      [playerId]: [gameResults]
+    },
+  ]
+
+enum gameResults
+  - stone
+  - scisors
+  - paper
