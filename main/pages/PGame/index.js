@@ -4,37 +4,34 @@ import { Checkbox, TextInput, Button, Div } from '@startupjs/ui'
 import { ROLE } from '../../../model/UserModel'
 import './index.styl'
 
-export default observer(function PHome () {
+
+// WIP
+export default observer(function PGame () {
   const [name, setName] = useState('')
   const [type, setType] = useState(false)
 
   const [, $users] = useDoc('users');
   const [, $currentUserId] = useSession('currentUserId')
   const handleClickEnter = async () => {
-    const userId = await $users.addSelf({
-      name,
-      role: type ? ROLE.PROFESSOR : ROLE.PLAYER,
-    })
-    $currentUserId.set(userId)
-    emit('url', '/hall')
+    console.log()
   }
 
   return pug`
     Div.login
-      TextInput(
-        label='Name'
-        value=name
-        onChangeText=setName
-      )
-      Checkbox.checkbox(
-        label='Log in as professor'
-        value=type
-        onChange=setType
-      )
       Button.enter(
         color='primary'
         variant='flat'
         onPress=handleClickEnter
-      ) Enter
+      ) Stone
+      Button.enter(
+        color='primary'
+        variant='flat'
+        onPress=handleClickEnter
+      ) Scissors
+      Button.enter(
+        color='primary'
+        variant='flat'
+        onPress=handleClickEnter
+      ) Paper
   `
 })

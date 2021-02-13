@@ -8,10 +8,12 @@ export const ROUND_RESULT = {
 
 export default class GameRoundsModel extends BaseModel {
   async addSelf() {
+    const id = this.id()
     await this.root.add(this.getCollection(), {
-      id: this.id(),
+      id,
       results: [],
     })
+    return id
   }
 
   async addResult({ playerId, result }) {

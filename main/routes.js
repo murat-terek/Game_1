@@ -10,8 +10,8 @@ export default (components = {}) => [
     component: components.PHall
   },
   {
-    path: '/pokemon/:id?',
+    path: '/add',
     exact: true,
-    component: components.PEdit
+    component: components.PAdd
   }
 ]
