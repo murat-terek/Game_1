@@ -29,6 +29,15 @@ const GameCard = ({
     onJoin && onJoin(id)
   }
 
+  console.log('game-card', 
+    id,
+    name,
+    createdOn,
+    participantCount,
+    professorId,
+    onJoin
+  )
+
   return pug`
     Card.card
       H3 #{name}

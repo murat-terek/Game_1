@@ -13,5 +13,10 @@ export default (components = {}) => [
     path: '/add',
     exact: true,
     component: components.PAdd
+  },
+  {
+    path: '/game/:id',
+    exact: true,
+    component: components.PGame
   }
 ]

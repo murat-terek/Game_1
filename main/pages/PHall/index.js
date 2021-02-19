@@ -9,7 +9,6 @@ import './index.styl'
 export default observer(function PHall () {
   const [currentUserId] = useSession('currentUserId')
   const [user] = useDoc('users', currentUserId)
-  console.log('user', user)
 
   return pug`
     Div.login

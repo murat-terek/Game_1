@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Div, Span, Row, H3, Button } from '@startupjs/ui'
 import { observer, emit, useQuery, useSession } from 'startupjs'
 import { GameCard } from 'components'
 import './index.styl'
 
-const ProfessorView = () => {
+export default observer(function ProfessorView () {
   const [currentUserId] = useSession('currentUserId')
   const [games] = useQuery('games', { professorId: { $eq: currentUserId } })
+
+  useEffect(() => {
+    if (currentUserId === undefined) {
+      emit('url', '/')
+    }
+  }, [])
 
   return pug`
     Div
@@ -31,6 +37,4 @@ const ProfessorView = () => {
                 onJoin=(id) => console.log(id)
               )
   `
-}
-
-export default ProfessorView
+})

@@ -12,14 +12,17 @@ export default observer(function PAdd () {
   const [name, setName] = useState('')
 
   const handleSave = () => {
-    console.log('handleSave')
-    console.log('name', name)
-    console.log('currentUserId', currentUserId)
     $games.addSelf({
       name,
       professorId: currentUserId
     })
   }
+
+  useEffect(() => {
+    if (currentUserId === undefined) {
+      emit('url', '/')
+    }
+  }, [])
 
   return pug`
     Div

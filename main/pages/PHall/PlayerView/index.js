@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Div, Span, Row, H3, Button } from '@startupjs/ui'
 import { observer, emit, useQuery, useSession } from 'startupjs'
 import { GameCard } from 'components'
 import './index.styl'
 
-const PlayerView = () => {
+export default observer(function PlayerView () {
   const [currentUserId] = useSession('currentUserId')
-  const [games] = useQuery('games', { playerIds: { $size: 0 } })
+  const [games, $games] = useQuery('games', { 
+    $or: [
+      { playerCount: { $lt: 2 }},
+      { playerIds: { $elemMatch: { $eq: currentUserId } } }
+    ]
+  })
+
+  const handleClickJoin = async (gameId) => {
+    await $games.at(gameId).addPlayer(currentUserId)
+    console.log('handleClickJoin')
+    emit('url', `/game/${gameId}`)
+  }
+
+  useEffect(() => {
+    if (currentUserId === undefined) {
+      emit('url', '/')
+    }
+  }, [])
 
   return pug`
     Div
@@ -28,10 +45,8 @@ const PlayerView = () => {
                 createdOn=new Date(game.createdOn)
                 participantCount=game.playerIds.length
                 professorId=game.professorId
-                onJoin=(id) => console.log(id)
+                onJoin=handleClickJoin
               )
   `
-}
-
-export default PlayerView
+})
 

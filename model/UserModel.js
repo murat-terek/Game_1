@@ -7,13 +7,17 @@ export const ROLE = {
 
 export default class UserModel extends BaseModel {
   async addSelf({ name, role }) {
-    const id = this.id()
+    const user = this.root.scope(`${this.getCollection()}.${name}`)
+    if (user) {
+      return name;
+    }
+    // const id = this.id()
     await this.root.add(this.getCollection(), {
-      id,
+      id: name,
       name,
       role,
     })
 
-    return id
+    return name
   }
 }
