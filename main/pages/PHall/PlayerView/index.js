@@ -15,7 +15,6 @@ export default observer(function PlayerView () {
 
   const handleClickJoin = async (gameId) => {
     await $games.at(gameId).addPlayer(currentUserId)
-    console.log('handleClickJoin')
     emit('url', `/game/${gameId}`)
   }
 
