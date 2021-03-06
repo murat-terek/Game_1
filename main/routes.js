@@ -18,5 +18,10 @@ export default (components = {}) => [
     path: '/game/:id',
     exact: true,
     component: components.PGame
+  },
+  {
+    path: '/pastgames',
+    exact: true,
+    component: components.PPastGames
   }
 ]

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { observer, emit, useDoc, useSession } from 'startupjs'
-import { useParams } from '@startupjs/app'
 import { Link, Div, TextInput, H2, Br, Button } from '@startupjs/ui'
 import './index.styl'
 
 export default observer(function PAdd () {
-  const params = useParams()
   const [, $games] = useDoc('games');
   const [currentUserId] = useSession('currentUserId')
 

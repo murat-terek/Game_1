@@ -36,11 +36,25 @@ export default observer(function PGame () {
     })
   }
 
+  const handleClickSurrender = () => {
+    $game.completeGame()
+  }
+
   useEffect(() => {
     if (currentUserId === undefined) {
       emit('url', '/')
     }
   }, [])
+
+  let showSurrenderButton = true  
+  if (results.length && Object.keys(results[results.length - 1]).length === 2) {
+    const result = results[results.length - 1]
+    showSurrenderButton = result[currentUserId].points < result[otherUserId].points
+  } else if (results.length > 1) {
+    const result = results[results.length - 2]
+    showSurrenderButton = result[currentUserId].points < result[otherUserId].points
+  }
+    
 
   return pug`
     Div.login
@@ -58,6 +72,8 @@ export default observer(function PGame () {
       if game.playerCount < 2
         Row(align='center')
           H2 Waiting for players
+      else if game.complete
+        H2 Game complete
       else
         Row.buttons(align='between')
           Button.enter(
@@ -78,5 +94,12 @@ export default observer(function PGame () {
             size='l'
             onPress=handleClickPaper
           ) Paper
+        if showSurrenderButton
+          Button.surrender(
+            color='error'
+            variant='flat'
+            size='l'
+            onPress=handleClickSurrender
+          ) Surrender
   `
 })

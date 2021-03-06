@@ -1,16 +1,21 @@
 import React, { useEffect } from 'react'
 import { Div, Span, Row, H3, Button } from '@startupjs/ui'
-import { observer, emit, useQuery, useSession } from 'startupjs'
+import { observer, emit, useQuery, useSession, useDoc } from 'startupjs'
 import { GameCard } from 'components'
 import './index.styl'
 
 export default observer(function PlayerView () {
   const [currentUserId] = useSession('currentUserId')
-  const [games, $games] = useQuery('games', { 
-    $or: [
-      { playerCount: { $lt: 2 }},
-      { playerIds: { $elemMatch: { $eq: currentUserId } } }
-    ]
+  const [user] = useDoc('users', currentUserId)
+  const [games, $games] = useQuery('games', {
+    $and: [
+      { $or: [
+        { playerCount: { $lt: 2 } },
+        { playerIds: { $elemMatch: { $eq: currentUserId } } },
+      ]},
+      { complete: { $eq: false } },
+    ],
+
   })
 
   const handleClickJoin = async (gameId) => {
@@ -27,12 +32,12 @@ export default observer(function PlayerView () {
   return pug`
     Div
       Row( align='between' vAlign='center' )
-        H3 Hall
+        H3 Player - #{user.name}
         Button(
           color='primary'
           variant='flat'
           size='l'
-          onPress=() => emit('url', '/add')
+          onPress=() => emit('url', '/pastgames')
         ) Past games
       Div.grid
         Row.row( wrap )

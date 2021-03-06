@@ -2,12 +2,28 @@ import React, { useEffect } from 'react'
 import { Div, Span, Row, H3, Button } from '@startupjs/ui'
 import { observer, emit, useQuery, useSession, useDoc } from 'startupjs'
 import { GameCard } from 'components'
+import { ROLE } from '../../../model/UserModel'
 import './index.styl'
 
-export default observer(function ProfessorView () {
+export default observer(function PPastGames () {
   const [currentUserId] = useSession('currentUserId')
   const [user] = useDoc('users', currentUserId)
-  const [games] = useQuery('games', { professorId: { $eq: currentUserId } })
+  const filter = {
+    $and: [
+      { complete: { $eq: true } },
+    ],
+  }
+  if (user.role === ROLE.PROFESSOR) {
+    filter.$and.push({ professorId: { $eq: currentUserId } })
+  } else {
+    filter.$and.push({ playerIds: { $elemMatch: { $eq: currentUserId } } })
+  }
+  const [games, $games] = useQuery('games', filter)
+
+  const handleClickJoin = async (gameId) => {
+    await $games.at(gameId).addPlayer(currentUserId)
+    emit('url', `/game/${gameId}`)
+  }
 
   useEffect(() => {
     if (currentUserId === undefined) {
@@ -18,18 +34,13 @@ export default observer(function ProfessorView () {
   return pug`
     Div
       Row( align='between' vAlign='center' )
-        H3 Professor - #{user.name}
-        Button.addNew(
-          color='primary'
-          size='l'
-          onPress=() => emit('url', '/add')
-        ) Add new
+        H3 Past games - #{user.name}
         Button(
           color='primary'
-          size='l'
           variant='flat'
-          onPress=() => emit('url', '/pastgames')
-        ) Past games
+          size='l'
+          onPress=() => emit('url', '/hall')
+        ) Back
       Div.grid
         Row.row( wrap )
           each game in games
@@ -40,7 +51,8 @@ export default observer(function ProfessorView () {
                 createdOn=new Date(game.createdOn)
                 participantCount=game.playerIds.length
                 professorId=game.professorId
-                onJoin=(id) => console.log(id)
+                onJoin=handleClickJoin
               )
   `
 })
+

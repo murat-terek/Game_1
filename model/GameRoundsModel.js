@@ -56,8 +56,6 @@ export default class GameRoundsModel extends BaseModel {
       results.push(lastResult)
     }
 
-    
-
     if (ids.length === 2) {
       const predLastResult = results.length >= 2 ? results[results.length - 2] : {};
       const lastPoints = results.length >= 2 ? {
