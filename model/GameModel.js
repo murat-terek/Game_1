@@ -32,5 +32,9 @@ export default class GameModel extends BaseModel {
 
   async completeGame() {
     this.set('complete', true)
+
+    const gameRoundId = this.get('gameRoundId')
+    const gameRound = this.root.scope(`gamerounds.${gameRoundId}`)
+    gameRound.complete()
   }
 }

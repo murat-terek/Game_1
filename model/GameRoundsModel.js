@@ -39,8 +39,8 @@ export default class GameRoundsModel extends BaseModel {
   }
 
   async addResult({ playerId, result }) {
-    const results = this.getCopy('results');
-    let lastResult = results.length ? results[results.length - 1] : {};
+    const results = this.getCopy('results')
+    let lastResult = results.length ? results[results.length - 1] : {}
 
     if (Object.keys(lastResult).length === 2) {
       lastResult = {}
@@ -57,7 +57,7 @@ export default class GameRoundsModel extends BaseModel {
     }
 
     if (ids.length === 2) {
-      const predLastResult = results.length >= 2 ? results[results.length - 2] : {};
+      const predLastResult = results.length >= 2 ? results[results.length - 2] : {}
       const lastPoints = results.length >= 2 ? {
         [ids[0]]: predLastResult[ids[0]].points,
         [ids[1]]: predLastResult[ids[1]].points
@@ -81,6 +81,19 @@ export default class GameRoundsModel extends BaseModel {
       if (winId !== undefined) {
         this.set('lastWinId', winId)
       }
+    }
+
+    this.set('results', results)
+  }
+
+  complete() {
+    const results = this.getCopy('results')
+    console.log('results', results)
+
+    let lastResult = results.length ? results[results.length - 1] : {}
+
+    if (Object.keys(lastResult).length < 2) {
+      results.pop()
     }
 
     this.set('results', results)

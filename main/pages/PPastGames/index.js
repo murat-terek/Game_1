@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Div, Span, Row, H3, Button } from '@startupjs/ui'
 import { observer, emit, useQuery, useSession, useDoc } from 'startupjs'
-import { GameCard } from 'components'
+import { PastGameCard } from 'components'
 import { ROLE } from '../../../model/UserModel'
 import './index.styl'
 
@@ -20,9 +20,8 @@ export default observer(function PPastGames () {
   }
   const [games, $games] = useQuery('games', filter)
 
-  const handleClickJoin = async (gameId) => {
-    await $games.at(gameId).addPlayer(currentUserId)
-    emit('url', `/game/${gameId}`)
+  const handleClickOpen = async (gameId) => {
+    emit('url', `/pastgame/${gameId}`)
   }
 
   useEffect(() => {
@@ -45,13 +44,13 @@ export default observer(function PPastGames () {
         Row.row( wrap )
           each game in games
             Div.item( key=game.id )
-              GameCard(
+              PastGameCard(
                 id=game.id
                 name=game.name
-                createdOn=new Date(game.createdOn)
-                participantCount=game.playerIds.length
                 professorId=game.professorId
-                onJoin=handleClickJoin
+                playerIds=game.playerIds
+                gameRoundId=game.gameRoundId
+                onOpen=handleClickOpen
               )
   `
 })
