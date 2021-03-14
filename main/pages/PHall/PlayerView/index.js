@@ -66,4 +66,3 @@ export default observer(function PlayerView () {
           )
   `
 })
-
