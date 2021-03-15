@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { observer, emit, useDoc, useSession } from 'startupjs'
-import { Link, Div, TextInput, H2, Br, Button } from '@startupjs/ui'
+import { Link, Div, TextInput, H2, Button } from '@startupjs/ui'
 import './index.styl'
 
 export default observer(function PAdd () {

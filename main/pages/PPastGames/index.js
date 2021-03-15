@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Div, Span, Row, H3, Button } from '@startupjs/ui'
+import { Div, Row, H3, Button } from '@startupjs/ui'
 import { observer, emit, useQuery, useSession, useDoc } from 'startupjs'
 import { PastGameCard } from 'components'
 import { ROLE } from '../../../model/UserModel'

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { observer, emit, useDoc, useSession } from 'startupjs'
 import { useParams } from '@startupjs/app'
-import { Checkbox, TextInput, Button, Div, Span, Row, H3,H2, Link, Collapse, Pagination } from '@startupjs/ui'
-import { ROUND_RESULT, roundToName } from '../../../model/GameRoundsModel'
+import { Div, Span, Row, H3, Link, Collapse, Pagination } from '@startupjs/ui'
+import { roundToName } from '../../../model/GameRoundsModel'
 import { ROLE } from '../../../model/UserModel'
 import './index.styl'
 

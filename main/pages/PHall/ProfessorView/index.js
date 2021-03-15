@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Div, Span, Row, H3, Button, Pagination } from '@startupjs/ui'
+import { Div, Row, H3, Button, Pagination } from '@startupjs/ui'
 import { observer, emit, useQuery, useSession, useDoc } from 'startupjs'
 import { GameCard } from 'components'
 import './index.styl'

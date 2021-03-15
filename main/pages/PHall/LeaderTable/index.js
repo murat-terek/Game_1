@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
-import { observer, emit, useDoc, useSession, useQuery } from 'startupjs'
-import { Checkbox, TextInput, Button, Div, Span, Row, H3,H2, Link } from '@startupjs/ui'
+import React from 'react'
+import { observer, useQuery } from 'startupjs'
+import { Div, Span, Row, H3 } from '@startupjs/ui'
 import { ROLE } from '../../../../model/UserModel'
 import './index.styl'
 

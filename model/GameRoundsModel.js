@@ -88,7 +88,6 @@ export default class GameRoundsModel extends BaseModel {
 
   complete() {
     const results = this.getCopy('results')
-    console.log('results', results)
 
     let lastResult = results.length ? results[results.length - 1] : {}
 
@@ -99,40 +98,3 @@ export default class GameRoundsModel extends BaseModel {
     this.set('results', results)
   }
 }
-
-// const a = {
-//   id,
-//   results: [
-//     {
-//       'Anzar': {
-//         result: ROUND_RESULT.STONE,
-//         points: 0
-//       },
-//       'Murat': {
-//         result: ROUND_RESULT.PAPER,
-//         points: 1
-//       },
-//     },
-//     {
-//       'Anzar': {
-//         result: ROUND_RESULT.STONE,
-//         points: 0
-//       },
-//       'Murat': {
-//         result: ROUND_RESULT.STONE,
-//         points: 1
-//       },
-//     },
-//     {
-//       'Anzar': {
-//         result: ROUND_RESULT.STONE,
-//         points: 0
-//       },
-//       'Murat': {
-//         result: ROUND_RESULT.PAPER,
-//         points: 2
-//       },
-//     },
-//   ],
-//   lastWinId: 'Anzar',
-// }
