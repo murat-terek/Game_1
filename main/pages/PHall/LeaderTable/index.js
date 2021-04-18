@@ -68,8 +68,8 @@ export default observer(function LeaderTable () {
         Span.titleCell Player name
         Span.titleCell Points
       each resultCell, index in resultTable
-        Row( key=index )
-          Span.cell #{resultCell.name}
-          Span.cell #{resultCell.points}
+        Row( key=index styleName=index===0?'row':undefined )
+          Span.cell= resultCell.name
+          Span.cell= resultCell.points
   `
 })

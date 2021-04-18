@@ -7,30 +7,24 @@ import './index.styl'
 const LIMIT = 10
 
 export default observer(function PlayerView () {
-  const [currentUserId] = useSession('currentUserId')
-  const [user] = useDoc('users', currentUserId)
+  const [userId] = useSession('userId')
+  const [user] = useDoc('users', userId)
   const [skip, setSkip] = useState(0)
   const [games, $games] = useQuery('games', {
     $and: [
       { $or: [
         { playerCount: { $lt: 2 } },
-        { playerIds: { $elemMatch: { $eq: currentUserId } } },
+        { playerIds: { $elemMatch: { $eq: userId } } },
       ]},
       { complete: { $eq: false } },
     ],
   })
 
   const handleClickJoin = async (gameId) => {
-    await $games.at(gameId).addPlayer(currentUserId)
+    await $games.at(gameId).addPlayer(userId)
     emit('url', `/game/${gameId}`)
   }
   const handleChangePage = (val) => setSkip(val * LIMIT)
-
-  useEffect(() => {
-    if (currentUserId === undefined) {
-      emit('url', '/')
-    }
-  }, [])
 
   let start = skip
   const end = Math.min(skip + LIMIT, games.length)

@@ -6,29 +6,23 @@ import { ROLE } from '../../../model/UserModel'
 import './index.styl'
 
 export default observer(function PPastGames () {
-  const [currentUserId] = useSession('currentUserId')
-  const [user] = useDoc('users', currentUserId)
+  const [userId] = useSession('userId')
+  const [user] = useDoc('users', userId)
   const filter = {
     $and: [
       { complete: { $eq: true } },
     ],
   }
   if (user.role === ROLE.PROFESSOR) {
-    filter.$and.push({ professorId: { $eq: currentUserId } })
+    filter.$and.push({ professorId: { $eq: userId } })
   } else {
-    filter.$and.push({ playerIds: { $elemMatch: { $eq: currentUserId } } })
+    filter.$and.push({ playerIds: { $elemMatch: { $eq: userId } } })
   }
   const [games, $games] = useQuery('games', filter)
 
   const handleClickOpen = async (gameId) => {
     emit('url', `/pastgame/${gameId}`)
   }
-
-  useEffect(() => {
-    if (currentUserId === undefined) {
-      emit('url', '/')
-    }
-  }, [])
 
   return pug`
     Div

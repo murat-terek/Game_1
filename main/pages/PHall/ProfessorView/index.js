@@ -7,11 +7,11 @@ import './index.styl'
 const LIMIT = 10
 
 export default observer(function ProfessorView () {
-  const [currentUserId] = useSession('currentUserId')
-  const [user] = useDoc('users', currentUserId)
+  const [userId] = useSession('userId')
+  const [user] = useDoc('users', userId)
   const [games] = useQuery('games', {
     $and: [
-      { professorId: {$eq: currentUserId } },
+      { professorId: {$eq: userId } },
       { complete: { $eq: false } },
     ]
   })
@@ -21,12 +21,6 @@ export default observer(function ProfessorView () {
     emit('url', `/historygame/${gameId}`)
   }
   const handleChangePage = (val) => setSkip(val * LIMIT)
-
-  useEffect(() => {
-    if (currentUserId === undefined) {
-      emit('url', '/')
-    }
-  }, [])
 
   let start = skip
   const end = Math.min(skip + LIMIT, games.length)

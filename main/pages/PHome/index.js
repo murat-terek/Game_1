@@ -8,14 +8,15 @@ export default observer(function PHome () {
   const [name, setName] = useState('')
   const [type, setType] = useState(false)
 
-  const [, $users] = useDoc('users');
-  const [, $currentUserId] = useSession('currentUserId')
+  const [, $users] = useDoc('users')
+  const [, $userId] = useSession('userId')
+
   const handleClickEnter = async () => {
     const userId = await $users.addSelf({
       name,
       role: type ? ROLE.PROFESSOR : ROLE.PLAYER,
     })
-    $currentUserId.set(userId)
+    $userId.set(userId)
     emit('url', '/hall')
   }
 

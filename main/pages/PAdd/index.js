@@ -4,23 +4,17 @@ import { Link, Div, TextInput, H2, Button } from '@startupjs/ui'
 import './index.styl'
 
 export default observer(function PAdd () {
-  const [, $games] = useDoc('games');
-  const [currentUserId] = useSession('currentUserId')
+  const [, $games] = useDoc('games')
+  const [userId] = useSession('userId')
 
   const [name, setName] = useState('')
 
   const handleSave = () => {
     $games.addSelf({
       name,
-      professorId: currentUserId
+      professorId: userId
     })
   }
-
-  useEffect(() => {
-    if (currentUserId === undefined) {
-      emit('url', '/')
-    }
-  }, [])
 
   return pug`
     Div

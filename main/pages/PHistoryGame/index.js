@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { observer, emit, useDoc, useSession } from 'startupjs'
 import { useParams } from '@startupjs/app'
 import { Button, Div, Span, Row, H3, H2, Link } from '@startupjs/ui'
-import { roundToName } from '../../../model/GameRoundsModel'
+import { roundToName } from '../../../const'
 import './index.styl'
 
 export default observer(function PHistoryGame () {
   const { id } = useParams()
-  const [currentUserId] = useSession('currentUserId')
+  const [userId] = useSession('userId')
 
   const [game, $game] = useDoc('games', id)
   const firlsPlayerId = game.playerIds[0]
@@ -20,25 +20,19 @@ export default observer(function PHistoryGame () {
     $game.completeGame()
   }
 
-  useEffect(() => {
-    if (currentUserId === undefined) {
-      emit('url', '/')
-    }
-  }, [])
-
   return pug`
     Div.login
       Link( to='/hall' ) Back
-      H3.title #{game.name}
+      H3.title= game.name
       Div.results
         each result, index in results
           if Object.keys(result).length === 2
             Row( key=index )
-              Span.cell #{result[firlsPlayerId] && roundToName.get(result[firlsPlayerId].result)}
-              Span.cell #{result[secondPlayerId] && roundToName.get(result[secondPlayerId].result)}
+              Span.cell= result[firlsPlayerId] && roundToName.get(result[firlsPlayerId].result)
+              Span.cell= result[secondPlayerId] && roundToName.get(result[secondPlayerId].result)
               Span.smallCell -
-              Span.smallCell #{result[firlsPlayerId] && result[firlsPlayerId].points}
-              Span.smallCell #{result[secondPlayerId] && result[secondPlayerId].points}
+              Span.smallCell= result[firlsPlayerId] && result[firlsPlayerId].points
+              Span.smallCell= result[secondPlayerId] && result[secondPlayerId].points
       if game.playerCount < 2
         Row(align='center')
           H2 Waiting for players

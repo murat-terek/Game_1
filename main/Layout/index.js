@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return pug`
     StartupLayout
       ScrollView.root
-        Content.content( width='wide' ) #{children}
+        Content.content( width='wide' )= children
   `
 }
 

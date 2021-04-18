@@ -2,18 +2,8 @@ import React from 'react'
 import { Br, Card, H3, Span, Row, Button } from '@startupjs/ui'
 import { useDoc } from 'startupjs'
 import { Image } from 'react-native'
+import { Info } from '../Info'
 import './index.styl'
-
-const Info = ({
-  label,
-  children,
-}) => {
-  return pug`
-    Span
-      Span( bold=true size='xl' ) #{label}: 
-      Span( size='xl' ) #{children}
-  `
-}
 
 const GameCard = ({
   id,
@@ -31,11 +21,11 @@ const GameCard = ({
 
   return pug`
     Card.card
-      H3 #{name}
+      H3= name
       Br
-      Info( label='Created on') #{createdOn.toDateString()}
-      Info( label='Participants') #{participantCount}
-      Info( label='Professor name') #{user.name}
+      Info( label='Created on')= createdOn.toDateString()
+      Info( label='Participants')= participantCount
+      Info( label='Professor name')= user.name
       Br
       Row( align='right' )
         Button.join(
