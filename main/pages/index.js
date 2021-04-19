@@ -1,2 +1,7 @@
 export { default as PHome } from './PHome'
-export { default as PAbout } from './PAbout'
+export { default as PHall } from './PHall'
+export { default as PAdd } from './PAdd'
+export { default as PGame } from './PGame'
+export { default as PPastGames } from './PPastGames'
+export { default as PPastGame } from './PPastGame'
+export { default as PHistoryGame } from './PHistoryGame'

@@ -1,1 +1,3 @@
-export { default as TestComponent } from './TestComponent'
+export { default as GameCard } from './GameCard'
+export { default as PastGameCard } from './PastGameCard'
+export { default as DeleteModal } from './DeleteModal'
