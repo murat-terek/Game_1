@@ -14,7 +14,7 @@ export default class UserModel extends BaseModel {
       return userIds[0]
     }
 
-    const id = this.id()
+    const id = this.scope().get('_session.userId')
     await this.root.add(this.getCollection(), {
       id,
       name,
