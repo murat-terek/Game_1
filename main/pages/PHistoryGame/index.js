@@ -7,7 +7,6 @@ import './index.styl'
 
 export default observer(function PHistoryGame () {
   const { id } = useParams()
-  const [userId] = useSession('userId')
 
   const [game, $game] = useDoc('games', id)
   const firlsPlayerId = game.playerIds[0]

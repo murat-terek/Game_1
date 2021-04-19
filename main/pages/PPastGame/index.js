@@ -10,13 +10,12 @@ const LIMIT = 10
 
 export default observer(function PPastGame () {
   const { id } = useParams()
-  let [userId] = useSession('userId')
-  const [user] = useDoc('users', userId)
+  const [user] = useSession('user')
 
   const [game, $game] = useDoc('games', id)
-  const firlsPlayerId = user.role === ROLE.PROFESSOR ? game.playerIds[0] : userId
+  const firlsPlayerId = user.role === ROLE.PROFESSOR ? game.playerIds[0] : user.id
   const secondPlayerId = user.role === ROLE.PLAYER
-                          ? (game.playerIds[0] === userId
+                          ? (game.playerIds[0] === user.id
                             ? game.playerIds[1] : game.playerIds[0])
                           : game.playerIds[1]
   const [firstPlayer] = useDoc('users', firlsPlayerId)

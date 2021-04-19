@@ -6,17 +6,16 @@ import { ROLE } from '../../../model/UserModel'
 import './index.styl'
 
 export default observer(function PPastGames () {
-  const [userId] = useSession('userId')
-  const [user] = useDoc('users', userId)
+  const [user] = useSession('user')
   const filter = {
     $and: [
       { complete: { $eq: true } },
     ],
   }
   if (user.role === ROLE.PROFESSOR) {
-    filter.$and.push({ professorId: { $eq: userId } })
+    filter.$and.push({ professorId: { $eq: user.id } })
   } else {
-    filter.$and.push({ playerIds: { $elemMatch: { $eq: userId } } })
+    filter.$and.push({ playerIds: { $elemMatch: { $eq: user.id } } })
   }
   const [games, $games] = useQuery('games', filter)
 

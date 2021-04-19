@@ -7,20 +7,11 @@ export const ROLE = {
 
 export default class UserModel extends BaseModel {
   async addSelf({ name, role }) {
-    const usersQuery = this.root.query(this.getCollection(), { name })
-    await usersQuery.subscribe()
-    const userIds = usersQuery.getIds()
-    if (userIds && userIds.length) {
-      return userIds[0]
-    }
-
     const id = this.scope().get('_session.userId')
     await this.root.add(this.getCollection(), {
       id,
       name,
       role,
     })
-
-    return id
   }
 }

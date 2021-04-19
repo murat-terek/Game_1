@@ -7,11 +7,10 @@ import './index.styl'
 const LIMIT = 10
 
 export default observer(function ProfessorView () {
-  const [userId] = useSession('userId')
-  const [user] = useDoc('users', userId)
+  const [user] = useSession('user')
   const [games] = useQuery('games', {
     $and: [
-      { professorId: {$eq: userId } },
+      { professorId: {$eq: user.id } },
       { complete: { $eq: false } },
     ]
   })

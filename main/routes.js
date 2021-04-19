@@ -1,8 +1,15 @@
 export function isLoggedIn (model, next, redirect) {
-  const userId = model.scope().get('_session.userId')
-  const loggedIn = model.scope().get(`users.${userId}`)
-  if (!loggedIn) {
+  const user = model.scope().get('_session.user')
+  if (!user) {
     return redirect('/')
+  }
+  next()
+}
+
+export function isLoggedOut (model, next, redirect) {
+  const user = model.scope().get('_session.user')
+  if (user) {
+    return redirect('/hall')
   }
   next()
 }
@@ -11,7 +18,8 @@ export default (components = {}) => [
   {
     path: '/',
     exact: true,
-    component: components.PHome
+    component: components.PHome,
+    filters: [isLoggedOut]
   },
   {
     path: '/hall',

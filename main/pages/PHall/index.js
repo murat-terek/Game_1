@@ -8,8 +8,7 @@ import LeaderTable from './LeaderTable'
 import './index.styl'
 
 export default observer(function PHall () {
-  const [userId] = useSession('userId')
-  const [user] = useDoc('users', userId)
+  const [user] = useSession('user')
 
   return pug`
     Div.login
